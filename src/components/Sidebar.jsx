@@ -42,7 +42,9 @@ const DesktopSidebar = () => {
         </ul>
         <div className=" flex gap-3 md:flex md:flex-wrap">
           <Dark />
-          <p className=" hidden content-center text-sm md:block ">Dark Mode?</p>
+          <p className=" hidden content-center text-sm md:block dark:text-white ">
+            Dark Mode?
+          </p>
         </div>
       </div>
     </div>
