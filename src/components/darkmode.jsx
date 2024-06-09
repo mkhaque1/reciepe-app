@@ -30,7 +30,7 @@ const Dark = () => {
         className=" text-xs shadow-lg bg-black text-white rounded-md p-2 cursor-pointer dark:bg-slate-50 dark:text-blue-500 "
         onClick={handleThemeSwitch}
       >
-        <Moon />
+        <Moon className=" swap-on" />
       </button>
     </div>
   );
