@@ -53,7 +53,7 @@ const DesktopSidebar = () => {
 
 const MobileSidebar = () => {
   return (
-    <div className="flex justify-center gap-10 border-t fixed w-full bottom-0 left-0 bg-zinc-200 dark:bg-zinc-900 z-10 p-2 sm:hidden">
+    <div className="flex justify-center gap-10 border-t fixed w-full bottom-0 left-0 dark:bg-opacity-50 bg-zinc-200 bg-opacity-55 backdrop-blur-md dark:bg-zinc-900 z-10 p-2 sm:hidden">
       <Link className=" content-center" to={"/"}>
         <Home className="dark:text-white" size={"24"} />
       </Link>

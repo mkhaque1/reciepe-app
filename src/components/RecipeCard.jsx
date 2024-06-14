@@ -1,5 +1,5 @@
 import { Heart, Soup, Tag } from "lucide-react";
-import React from "react";
+import React, { useState } from "react";
 
 const getTwoValuesFromArray = (arr) => {
   return [arr[0], arr[1]];
@@ -7,12 +7,36 @@ const getTwoValuesFromArray = (arr) => {
 
 export const RecipeCard = ({ recipe, badge, bg }) => {
   const healthLabels = getTwoValuesFromArray(recipe.healthLabels);
+  const [isFavorite, setIsFavorite] = useState(
+    localStorage.getItem("favorites")?.includes(recipe.label)
+  );
+
+  const addRecipeToFavorites = () => {
+    let favorites = JSON.parse(localStorage.getItem("favorites")) || [];
+    const isRecipeAlreadyInFavorites = favorites.some(
+      (fav) => fav.label === recipe.label
+    );
+
+    if (isRecipeAlreadyInFavorites) {
+      favorites = favorites.filter((fav) => fav.label !== recipe.label);
+      setIsFavorite(false);
+    } else {
+      favorites.push(recipe);
+      setIsFavorite(true);
+    }
+
+    localStorage.setItem("favorites", JSON.stringify(favorites));
+  };
 
   return (
     <div
       className={`flex flex-col rounded-md bg-slate-300 ${badge} overflow-hidden relative p-3`}
     >
-      <a href="#" className=" relative h-32">
+      <a
+        href={`https://www.youtube.com/results?search_query=${recipe.label} recipe 2024`}
+        target="_blank"
+        className=" relative h-32"
+      >
         <img
           className=" w-full h-full object-cover rounded-md"
           src={recipe.image}
@@ -22,11 +46,22 @@ export const RecipeCard = ({ recipe, badge, bg }) => {
           <Soup size={"16"} />
           <span className=" text-sm">Servings {recipe.yield}</span>
         </div>
-        <div className=" absolute top-1 right-2 bg-slate-100 rounded-full cursor-pointer p-1">
-          <Heart
-            size={"16"}
-            className=" hover:fill-red-500 hover:text-red-500 "
-          />
+        <div
+          className=" absolute top-1 right-2 bg-slate-100 rounded-full cursor-pointer p-1"
+          onClick={(e) => {
+            e.preventDefault();
+            addRecipeToFavorites();
+          }}
+        >
+          {!isFavorite && (
+            <Heart
+              size={20}
+              className="hover:fill-red-500 hover:text-red-500"
+            />
+          )}
+          {isFavorite && (
+            <Heart size={20} className="fill-red-500 text-red-500" />
+          )}
         </div>
       </a>
       <div className=" space-y-1 mt-2">
